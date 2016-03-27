@@ -14,6 +14,11 @@ Describe "cdiskspd"{
             $output, $error = Run-Diskspd -arguments @("-d10","c1G")
             $error | Should be "0"
         }
+        It "Returns exit code null. Correct call to diskspd and function runs without error."{
+            Mock run-ProcessAsAdministrator {"output, read, write", $null}
+            $Output, $error = Run-Diskspd -arguments @("-d10", "c1G")
+            $error | Should be $null
+        }
     }
     Context "Single file delete"{
         It "Deletes 1 test file that was specified" {
