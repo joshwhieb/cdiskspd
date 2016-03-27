@@ -38,9 +38,9 @@ function Run-Diskspd($path = "C:\Program Files\Diskspd\amd64fre\diskspd.exe", $a
         }
     }
 
-    if($exitCode -ne 0)
+    if($exitCode -ne 0 -and $exitCode -ne $null)
     {
-        throw "Nonzero exit code returned from diskspd"
+        throw "Nonzero exit code returned from diskspd: $exitCode"
     }
     else
     {
@@ -50,4 +50,4 @@ function Run-Diskspd($path = "C:\Program Files\Diskspd\amd64fre\diskspd.exe", $a
 
 
 
-## $output, $exitcode = run-ProcessAsAdministrator -path "C:\program files\Diskspd\amd64fre\diskspd.exe" -arguments @("-c1G","-b4K","-t2","-d10", "-a0,1", "testfile1.dat", "testfile2.dat")
+## $output, $exitcode = Run-Diskspd -path "C:\program files\Diskspd\amd64fre\diskspd.exe" -arguments @("-c1G","-b4K","-t2","-d10", "-a0,1", "C:\temp\testfile1.dat", "C:\temp\testfile2.dat") -deleteTestFile @("C:\temp\testfile1.dat", "C:\temp\testfile2.dat")

@@ -41,5 +41,4 @@ Describe "cdiskspd"{
             Assert-MockCalled -CommandName Remove-Item -Times $diskspdArgs.deleteTestFile.Count
         }
     }
-
 }
