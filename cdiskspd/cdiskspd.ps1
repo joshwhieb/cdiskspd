@@ -18,9 +18,25 @@
     return $output,$exitCode
 }
 
-function Run-Diskspd($path = "C:\Program Files\Diskspd\amd64fre\diskspd.exe", $arguments)
+function Run-Diskspd($path = "C:\Program Files\Diskspd\amd64fre\diskspd.exe", $arguments, $deleteTestFile)
 {
     $output, $exitCode = run-ProcessAsAdministrator -path $path -arguments $arguments
+
+    # Delete the test file if the variable exists
+    if($deleteTestFile)
+    {
+        foreach($testFilePath in $deleteTestFile)
+        {
+            if(Test-Path $testFilePath)
+            {
+                Remove-Item -Path $testFilePath -Force -Recurse
+            }
+            else
+            {
+                Write-Debug "The testfile path does not exist.  Not deleting."
+            }
+        }
+    }
 
     if($exitCode -ne 0)
     {
@@ -31,6 +47,7 @@ function Run-Diskspd($path = "C:\Program Files\Diskspd\amd64fre\diskspd.exe", $a
         return $output,$exitCode
     }
 }
+
 
 
 ## $output, $exitcode = run-ProcessAsAdministrator -path "C:\program files\Diskspd\amd64fre\diskspd.exe" -arguments @("-c1G","-b4K","-t2","-d10", "-a0,1", "testfile1.dat", "testfile2.dat")
