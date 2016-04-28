@@ -10,15 +10,11 @@
         deleteTestFile = @("C:\temp\testfile1.dat", "C:\temp\testfile2.dat")
     }
 
-    $output, $exitCode = Start-Diskspd @args
+    $output = Start-Diskspd @args
 
     Write-host "Test Output: $output"
 
-    if($exitCode -ne 0 -and $exitCode -ne $null)
-    {
-        throw "Nonzero exit code returned from diskspd: $exitCode"
-    }
-    elseif((Test-Path C:\temp\testfile1.dat) -or (Test-Path C:\temp\testfile2.dat))
+    if((Test-Path C:\temp\testfile1.dat) -or (Test-Path C:\temp\testfile2.dat))
     {
         throw "did not delete the test files after completion."
     }

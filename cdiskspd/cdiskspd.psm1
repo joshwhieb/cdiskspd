@@ -61,7 +61,7 @@ function Start-ProcessAsAdministrator
         deleteTestFile = @("C:\temp\testfile1.dat", "C:\temp\testfile2.dat")
     }
 
-    $output, $exitCode = Start-Diskspd @args
+    $output = Start-Diskspd @args
     $output
 #>
 function Start-Diskspd
@@ -71,13 +71,14 @@ function Start-Diskspd
     [OutputType([int])]
     Param
     (
-        # Param1 help descripti
+        # Path to the diskspd executable to execute
         $path = "C:\Program Files\Diskspd\amd64fre\diskspd.exe",
 
-        # Param2 help description
+        # Argument string array to execute against the diskspd.
         [string[]]
         $arguments,
 
+        # Test files to delete after execution
         [string[]]
         $deleteTestFile
     )
@@ -115,10 +116,13 @@ function Start-Diskspd
         }
         else
         {
-            return $output,$exitCode
+            return $output
         }
     }
 }
+
+
+
 
 Export-ModuleMember Start-ProcessAsAdministrator
 Export-ModuleMember Start-Diskspd

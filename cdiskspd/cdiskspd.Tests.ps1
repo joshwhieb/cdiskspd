@@ -9,22 +9,6 @@ $script:t = [scriptblock]::Create(( gc $script:pathtosut -Raw ) )
 New-Module -Name $modName -ScriptBlock $t  | Import-Module -Force
 
 Describe "cdiskspd"{
-    Context "Exit code checks"{
-        It "Returns exit code 3. Function throws exception for nonzero exit code."{
-            Mock Start-ProcessAsAdministrator { "output, read, write", "3" } -ModuleName $modName
-            {Start-Diskspd -arguments @()} | Should throw
-        }
-        It "Returns exit code 0. Correct call to diskspd and function runs without error."{
-            Mock Start-ProcessAsAdministrator {"output, read, write", "0"} -ModuleName $modName
-            $output, $error = Start-Diskspd -arguments @("-d10","c1G")
-            $error | Should be "0"
-        }
-        It "Returns exit code null. Correct call to diskspd and function runs without error."{
-            Mock Start-ProcessAsAdministrator {"output, read, write", $null} -ModuleName $modName
-            $Output, $error = Start-Diskspd -arguments @("-d10", "c1G")
-            $error | Should be $null
-        }
-    }
     Context "Single file delete"{
         It "Deletes 1 test file that was specified" {
             Mock Start-ProcessAsAdministrator {"output, read,write", "0"} -ModuleName $modName
