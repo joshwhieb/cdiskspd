@@ -18,6 +18,10 @@
     {
         throw "Nonzero exit code returned from diskspd: $exitCode"
     }
+    elseif((Test-Path C:\temp\testfile1.dat) -or (Test-Path C:\temp\testfile2.dat))
+    {
+        throw "did not delete the test files after completion."
+    }
     else
     {
         Write-Host "Functional test result: passed" -ForegroundColor Green
