@@ -90,6 +90,10 @@ function Start-Diskspd
     }
     Process
     {
+        # Prepend the array with a xml switch to run xml only
+        $arguments = ,"-Rxml" + $arguments
+        
+        # Run the test
         $output, $exitCode = Start-ProcessAsAdministrator -path $path -arguments $arguments
 
         # Delete the test file if the variable exists

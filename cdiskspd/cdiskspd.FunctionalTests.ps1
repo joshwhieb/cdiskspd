@@ -10,6 +10,8 @@
         deleteTestFile = @("C:\temp\testfile1.dat", "C:\temp\testfile2.dat")
     }
 
+    $output = $null
+
     $output = Start-Diskspd @args
 
     Write-host "Test Output: $output"
